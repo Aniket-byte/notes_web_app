@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "notesproject-5a684"
+  },
+  "targets": {
+    "notesproject-5a684": {
+      "hosting": {
+        "NotesApp": [
+          "notesproject-5a684"
+        ]
+      }
+    }
+  }
+}

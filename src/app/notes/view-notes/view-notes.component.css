@@ -1,0 +1,15 @@
+@media screen and (max-device-width: 1000px) {
+
+    div#userlinks{
+       font-size: 11px;
+    }
+    div#title{
+        width: 85vw;
+    }
+    div#content{
+        width: 85vw;
+    }
+    div#userlinks{
+        width: 80vw;
+    }
+}

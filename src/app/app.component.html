@@ -1,0 +1,43 @@
+
+<nav style="background-color:rgba(0, 0, 0, 0.7);" class="navbar navbar-dark navbar-expand-lg sticky-top">
+    <img src="https://image.flaticon.com/icons/svg/2899/2899293.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+  <a class="navbar-brand" [routerLink]='["/"]'>Take-Your-Notes.com</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" 
+        routerLink="/" 
+        [routerLinkActive]="'active'" 
+        [routerLinkActiveOptions]="{ exact:true }">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" 
+        routerLink="/notes" 
+        routerLinkActive="active" 
+        >
+        Notes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" 
+        routerLink="/feedback" 
+        routerLinkActive="active" 
+        [routerLinkActiveOptions]="{ exact:true }">
+        Feedback</a>
+      </li>
+    </ul>
+    <div [@btnState] *ngIf="!loggedin; else logout">
+     <button class="btn btn-success" (click)="onClick()">Login / Signup</button>
+    </div>
+    <ng-template #logout>
+      <div [@btnState]>
+        <button type="button" class="btn btn-danger" (click)="onLogout()">Logout</button>
+      </div>
+    </ng-template>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

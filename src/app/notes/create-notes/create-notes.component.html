@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+<div class="jumbotron" style="background-color: rgba(0, 0, 0, 0.7);width:700px;">
+    <h1>Create a note </h1><hr style="background-color: white;">
+<div class="form-group">
+   <form [formGroup]="notesForm" (ngSubmit)="onSubmit()">
+       <div [@inputState]>
+       <label for="title">Title</label>
+       <input [ngStyle]="{'border-color': notesForm.get('title').hasError('required') && notesForm.get('title').touched ? 'red' : 'white'}" style="color:white;background-color: transparent;" formControlName="title" id="title" class="form-control mb-1" type="text">
+    
+       <p [@messageState] *ngIf="notesForm.get('title').hasError('required') && notesForm.get('title').touched" style="color:red;">** Required **</p>
+    
+       <label for="content">Content</label>
+           <textarea [ngStyle]="{'border-color': notesForm.get('content').hasError('required') && notesForm.get('content').touched ? 'red' : 'white'}" style="color:white;background-color: transparent;height:170px;" formControlName="content" class="form-control" id="content"></textarea>
+           
+           <p [@messageState] *ngIf="notesForm.get('content').hasError('required') && notesForm.get('content').touched" style="color:red;">** Required **</p>
+       
+           <button (click)="addLink()" type="button" class="btn btn-info mt-2 mb-2">Add links</button>
+       <div formArrayName="links">
+           <div *ngFor="let item of getFormArray();let i=index">
+            <div class="input-group mb-2">
+                <input [ngStyle]="{'border-color': getFormControlError(i) && getFormControltouched(i) ? 'red' : 'white' }" style="color:white;background-color: transparent;" [formControlName]="i" type="text" class="form-control" placeholder="Drop your link here" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button (click)="onRemove(i)" class="btn btn-danger" type="button" id="button-addon2">Remove</button>
+                </div>
+            </div>
+            <p [@messageState] *ngIf="getFormControlError(i) && getFormControltouched(i)" style="color:red;">** Required **</p>
+        </div>
+       </div>
+    </div>
+       <div [@btnState] class="d-flex flex-column flex-md-row">
+       <button [disabled]="!notesForm.valid" class="btn btn-primary mr-md-2">Create</button>
+       <button (click)="onCancel()" type="button" class="btn btn-danger mt-md-0 mt-2">Cancel</button>
+    </div>
+   </form>
+</div>
+</div>
+</div>
+
+<ng-template alert-directive></ng-template>
+

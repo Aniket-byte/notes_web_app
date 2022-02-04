@@ -1,0 +1,48 @@
+<div *ngIf="!loading; else loadspinner" class="d-flex justify-content-center">
+    <div class="jumbotron" style="background-color: rgba(0, 0, 0, 0.7);width:700px;">
+        <h1>Edit</h1><hr style="background-color: white;">
+    <div class="form-group">
+       <form [formGroup]="notesEdit" (ngSubmit)="onSubmit()">
+           <div [@inputState]>
+           <label for="title">Title</label>
+           <input (input)="changeSaveStatus()" [ngStyle]="{'border-color': notesEdit.get('title').hasError('required') && notesEdit.get('title').touched ? 'red' : 'white'}" style="color:white;background-color: transparent;" formControlName="title" id="title" class="form-control mb-1" type="text">
+        
+           <p [@messageState] *ngIf="notesEdit.get('title').hasError('required') && notesEdit.get('title').touched" style="color:red;">** Required **</p>
+        
+           <label for="content">Content</label>
+               <textarea (input)="changeSaveStatus()" [ngStyle]="{'border-color': notesEdit.get('content').hasError('required') && notesEdit.get('content').touched ? 'red' : 'white'}" style="color:white;background-color: transparent;height:170px;" formControlName="content" class="form-control" id="content"></textarea>
+               
+               <p [@messageState] *ngIf="notesEdit.get('content').hasError('required') && notesEdit.get('content').touched" style="color:red;">** Required **</p>
+           
+               <button (click)="addLink()" type="button" class="btn btn-info mt-2 mb-2">Add links</button>
+           <div formArrayName="links">
+               <div *ngFor="let item of getFormArray();let i=index">
+                <div class="input-group mb-2">
+                    <input (input)="changeSaveStatus()" [ngStyle]="{'border-color': getFormControlError(i) && getFormControltouched(i) ? 'red' : 'white' }" style="color:white;background-color: transparent;" [formControlName]="i" type="text" class="form-control" placeholder="Drop your link here" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                      <button (click)="onRemove(i)" class="btn btn-danger" type="button" id="button-addon2">Remove</button>
+                    </div>
+                </div>
+                <p [@messageState] *ngIf="getFormControlError(i) && getFormControltouched(i)" style="color:red;">** Required **</p>
+            </div>
+           </div>
+        </div>
+           <div [@btnState] class="d-flex flex-column flex-md-row">
+           <button [disabled]="!notesEdit.valid || getStatus()" class="btn btn-primary mr-md-2">Update</button>
+           <button *ngIf="!getStatus(); else gobackbtn" (click)="onCancel()" type="button" class="btn btn-danger mt-md-0 mt-2">Cancel</button>
+           <ng-template #gobackbtn>
+                <button (click)="onCancel()" type="button" class="btn btn-warning mt-md-0 mt-2">Go back</button>
+           </ng-template>
+        </div>
+       </form>
+    </div>
+    </div>
+    </div>
+    
+    <ng-template alert-directive></ng-template>
+
+    <ng-template #loadspinner>
+        <app-spinner></app-spinner>
+    </ng-template>
+
+    <ng-template alert-directive></ng-template>

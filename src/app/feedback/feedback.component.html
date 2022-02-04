@@ -1,0 +1,85 @@
+<div *ngIf="!loading;else spinner" class="m-2 mt-5"style='color:white'>
+   <div class='d-flex justify-content-center'>
+       <div style="width: 500px; background-color: rgba(0, 0, 0, 0.7);" class="jumbotron">
+        <h1>Feedback</h1><hr style="background-color: white;">
+        <div class="mt-3 form-group">
+            <form [formGroup]="formGrp" (ngSubmit)="onSubmit()">
+                <div [@inputState]>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span style="border-color:white;background-color:white;" 
+                      class="input-group-text" id="basic-addon1">
+                      <svg class="bi bi-person-fill" 
+                      width="1em" height="1em" 
+                      viewBox="0 0 16 16" fill="currentColor" 
+                      xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd" 
+                     d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" 
+                     clip-rule="evenodd"/>
+                      </svg>
+                    </span>
+                    </div>
+                    <input [ngStyle]="{'border-color': formGrp.get('name').hasError('required') && formGrp.get('name').touched ? 'red' : 'white'}" formControlName="name" style="color:white;background-color: transparent" 
+                    type="text" class="form-control" 
+                    placeholder="Username" >
+                  </div>
+
+                  <p [@messageState] *ngIf="formGrp.get('name').hasError('required') && formGrp.get('name').touched" style="color:red;">** Required **</p>
+
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span style="border-color:wheat;background-color:white;" 
+                      class="input-group-text" id="basic-addon1">
+                      <svg class="bi bi-envelope-fill" 
+                      width="1em" height="1em" 
+                      viewBox="0 0 16 16" 
+                      fill="currentColor" 
+                      xmlns="http://www.w3.org/2000/svg">
+                    <path d="M.05 3.555L8 8.414l7.95-4.859A2 2 0 0014 2H2A2 2 0 00.05 3.555zM16 4.697l-5.875 3.59L16 11.743V4.697zm-.168 8.108L9.157 8.879 8 9.586l-1.157-.707-6.675 3.926A2 2 0 002 14h12a2 2 0 001.832-1.195zM0 11.743l5.875-3.456L0 4.697v7.046z"/>
+                      </svg>
+                    </span>
+                    </div>
+                    <input [ngStyle]="{'border-color': formGrp.get('email').hasError('email') && formGrp.get('email').touched || formGrp.get('email').hasError('required') && formGrp.get('email').touched ? 'red' : 'white'}" formControlName="email" style="color:white;background-color: transparent" type="email" class="form-control" placeholder="Email">
+                  </div>
+
+                  <p [@messageState] *ngIf="formGrp.get('email').hasError('email') && formGrp.get('email').touched" style="color:red;">** Enter a valid email **</p>
+                  <p [@messageState] *ngIf="formGrp.get('email').hasError('required') && formGrp.get('email').touched" style="color:red;">** Required **</p>
+                  
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span 
+                      style="border-color:white;background-color: white;" 
+                      class="input-group-text">
+                      <svg class="bi bi-layout-text-sidebar" 
+                      width="1em" 
+                      height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M11 15V1h1v14h-1zM3 3.5a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zm0 3a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zm0 3a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5zm0 3a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                      </svg></span>
+                    </div>
+                    <textarea  [ngStyle]="{'border-color': formGrp.get('feedback').hasError('required') && formGrp.get('feedback').touched ? 'red' : 'white'}" formControlName="feedback" placeholder="Feedback" style="color:white;background-color: transparent" class="form-control"></textarea>
+                  </div>
+                  <p class="mt-2" [@messageState] *ngIf="formGrp.get('feedback').hasError('required') && formGrp.get('feedback').touched" style="color:red;">** Required **</p>
+                </div>
+
+                <div [@btnState] class="mt-3">
+                    <button [disabled]="!formGrp.valid" type="submit" class="btn btn-light">Submit</button>
+                </div>
+            </form>
+        </div>
+       </div>
+   </div>
+</div>
+
+
+<ng-template #spinner>
+<div class="dflex justify-content-center">
+    <app-spinner></app-spinner>
+</div>
+</ng-template>
+
+<ng-template alert-directive>
+</ng-template>
+
+
+

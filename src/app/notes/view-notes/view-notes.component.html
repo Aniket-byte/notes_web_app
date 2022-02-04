@@ -1,0 +1,38 @@
+<div *ngIf="!loading; else loadspinner" class="m-4">
+    <div class="d-flex justify-content-center">
+        <div style="width: 700px;background-color: rgba(0, 0, 0, 0.7);" class="jumbotron">
+            <div [@contentState]>
+            <div id="title" style="word-wrap: break-word;white-space:pre-wrap;">
+                <h2>{{note.title}}</h2>
+            </div>
+            <hr style="background-color: white;">
+            <div id="content" style="white-space:pre-wrap;word-wrap: break-word;">
+                {{note.content}}
+            </div>
+            <hr style="background-color: white;">
+            <h5>Your links</h5>
+            <div style="word-wrap: break-word;" id="userlinks" class="list-group mb-2">
+            <div *ngIf="this.note.hasOwnProperty('links') ;else nolink">
+                <a style="font-weight: bold;" [href]="link | linkpipe" target="_blank" class="list-group-item list-group-item-dark" *ngFor="let link of note.links">
+                     {{link}}
+                </a>
+        </div>
+                <ng-template #nolink>
+                   <div><p>No links available</p></div>
+                </ng-template>
+            </div>
+            <hr style="background-color: white;">
+        </div>
+            <div [@btnState] class="d-flex flex-md-row flex-column">
+                <button class="btn btn-warning mr-md-2" (click)="onEdit()">Edit</button>
+                <button class='btn btn-primary mt-2 mt-md-0' [routerLink]="['/notes']">Go back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loadspinner>
+        <div class='m-4'>
+          <app-spinner></app-spinner>
+        </div>
+</ng-template>
